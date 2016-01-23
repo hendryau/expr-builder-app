@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Expression Builder (hello Angular2) App</title>
+
+    <link rel="stylesheet" href="style.css"/>
+
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+
+    <script>
+        System.config({
+            packages: {
+                app: { //matches parent dir
+                    format: 'register',
+                    defaultExtension: 'js'
+                }
+            }
+        });
+        System.import('app/boot')
+                .then(null, console.error.bind(console));
+    </script>
+
+</head>
+
+<body>
+    <div>
+        <expr-app>Loading...</expr-app>
+    </div>
+</body>
+
+</html>

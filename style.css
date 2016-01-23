@@ -1,0 +1,56 @@
+/*turn off the spinners in input elements*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+body > div {
+    text-align: center;
+}
+
+/**************************/
+/* expr-app.component */
+/**************************/
+expr-app * {
+    font-size: 30px;
+}
+
+/**************************/
+/* expr-builder.component */
+/**************************/
+
+.expr-literal {
+    border: 1px solid grey;
+}
+
+.expr-literal > input {
+    width: 70px;
+}
+.expr-literal > button {
+    cursor: pointer;
+}
+
+.expr-literal > input,
+.expr-literal > button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+.expr-literal > input:focus,
+.expr-literal > button:focus {
+    outline: none;
+}
+
+.collapse-expr {
+    vertical-align: super;
+    font-size: 14px;
+    border: 1px solid transparent;
+    padding: 0px 5px 0px 5px;
+    font-weight: bold;
+    background-color: transparent;
+}
+.collapse-expr:hover {
+    border: 1px solid grey;
+    border-radius: 50%;
+}
