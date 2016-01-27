@@ -23,19 +23,20 @@ import {ExprTree, Literal, Operator} from "./expr";
     `
 })
 export class ExprBuilder {
-    @Input() exprTree: ExprTree;
+    @Input() public exprTree: ExprTree;
 
-    @Output() evalNeeded: EventEmitter<any> = new EventEmitter();
+    @Output() public evalNeeded: EventEmitter<any> = new EventEmitter();
 
     public operators: string[] = Operator.OPERATORS;
 
-    expand(): void {
+    public collapse(): void {
+        this.exprTree.expr = new Literal(this.exprTree.expr.evaluate());
+    }
+
+    public expand(): void {
         this.exprTree.expr = new Operator(
             new ExprTree(this.exprTree.expr),
             new ExprTree(new Literal(0)),
             '+');
-    }
-    collapse(): void {
-        this.exprTree.expr = new Literal(this.exprTree.expr.evaluate());
     }
 }

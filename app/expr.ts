@@ -11,7 +11,7 @@ export interface Expr {
 }
 
 export class Operator implements Expr {
-    static OPERATORS: string[] = [
+    public static OPERATORS: string[] = [
         '+', '-', '*', '/'
     ];
 
