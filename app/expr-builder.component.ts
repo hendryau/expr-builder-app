@@ -1,29 +1,31 @@
-import {Component, Input}            from "angular2/core";
+import {Component, EventEmitter, Input, Output} from "angular2/core";
 import {ExprTree, Literal, Operator} from "./expr";
 
 @Component({
     selector: 'expr-builder',
-    directives: [ExprBuilder], //note that this is a recursive directive, we don't need to include at the top. if you try to include it, you'll get an exception that it doesn't exist, cause the compiler hasn't compiled this file yet.
+    directives: [ExprBuilder],
     inputs: ['exprTree'],
     template:`
         <span *ngIf="!exprTree.expr.isLiteral()">
-            (<expr-builder [exprTree]="exprTree.expr.leftOperand"></expr-builder>
+            (<expr-builder [exprTree]="exprTree.expr.leftOperand" (evalNeeded)="evalNeeded.emit(null)"></expr-builder>
 
-            <select [(ngModel)]="exprTree.expr.op">
+            <select [(ngModel)]="exprTree.expr.op" (change)=" evalNeeded.emit(null)">
                 <option *ngFor="#op of operators">{{op}}</option>
             </select>
 
-            <expr-builder [exprTree]="exprTree.expr.rightOperand"></expr-builder>
+            <expr-builder [exprTree]="exprTree.expr.rightOperand" (evalNeeded)="evalNeeded.emit(null)"></expr-builder>
             )<button (click)="collapse()" class="collapse-expr" title="collapse">X</button>
         </span>
         <span *ngIf="exprTree.expr.isLiteral()" class="expr-literal">
-            <input [(ngModel)]="exprTree.expr.value" type="number"
+            <input [(ngModel)]="exprTree.expr.value" type="number" (input)="evalNeeded.emit(null)"
             ><button title="expand" (click)="expand()">&#9654;</button
         ></span>
     `
 })
 export class ExprBuilder {
     @Input() exprTree: ExprTree;
+
+    @Output() evalNeeded: EventEmitter<any> = new EventEmitter();
 
     public operators: string[] = Operator.OPERATORS;
 
